@@ -1,0 +1,14 @@
+# Ficheiro: .htaccess (na raiz do projeto, ao lado da pasta 'app')
+
+RewriteEngine On
+
+# Define o diretório base da sua aplicação.
+RewriteBase /painel/
+
+# Se a requisição não for para um ficheiro que existe...
+RewriteCond %{REQUEST_FILENAME} !-f
+# ...e não for para uma pasta que existe...
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# ...envia tudo para o index.php principal.
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
