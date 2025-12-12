@@ -4,6 +4,9 @@ $pageTitle = 'Painel TV - ' . ucfirst($data['campus']);
 
 require_once BASE_PATH . 'app/Views/layouts/header.php';
 
+date_default_timezone_set('America/Sao_Paulo');
+$hora_atual = date('H:i');
+
 // --- Configurações do Carrossel ---
 $reservasPorSlide = 12;
 $intervaloSlideReservas = 2000;
@@ -15,17 +18,23 @@ $first_item_active = true; // Para garantir que apenas o primeiro item total sej
 
 <div id="info-header">
     <header>
-        <div class="row m-0">
-            <div class="col-3 col-md-4 text-start d-flex align-items-center">
+        <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+            <div>
                 <img src="<?= BASE_URL ?>public/assets/img/logo_header.svg" alt="" width="220px" class="img-fluid">
             </div>
-            <div class="col-8 col-md-7 text-start d-flex align-items-center">
-                <h1>ENCONTRE SUA SALA OU LABORATÓRIO</h1>
+            <div class="text-center">
+                <h1>PROGRAMAÇÃO DIÁRIA</h1>
+            </div>
+            <div>
+                <span class="text-white" id="hora_atual">
+                    <?= $hora_atual ?></span>
             </div>
         </div>
     </header>
 
-    <?php require_once BASE_PATH . 'app/Views/partials/date_header.php'; ?>
+    <?php require_once BASE_PATH . 'app/Views/partials/date_header_tv.php'; ?>
+
+
 </div>
 
 <div id="painelCarouselTV" class="carousel carousel-dark slide" data-bs-ride="carousel"
@@ -120,3 +129,20 @@ $first_item_active = true; // Para garantir que apenas o primeiro item total sej
 require_once BASE_PATH . 'app/Views/layouts/footer.php';
 ?>
 <script src="<?= BASE_URL ?>public/assets/js/header_tv.js"></script>
+
+<script>
+    function atualizarHora() {
+        const agora = new Date();
+        const hora = agora.getHours().toString().padStart(2, '0');
+        const minuto = agora.getMinutes().toString().padStart(2, '0');
+        const horaFormatada = `${hora}:${minuto}`;
+        document.getElementById('hora_atual').innerText = horaFormatada;
+    }
+
+    // Atualiza a hora a cada 60 segundos (60000 milissegundos)
+    // Para atualizar a cada 1 segundo, use 1000
+    setInterval(atualizarHora, 5000);
+
+    // Chama a função uma vez para garantir que a hora seja exibida imediatamente
+    atualizarHora();
+</script>

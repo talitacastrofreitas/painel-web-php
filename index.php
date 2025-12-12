@@ -140,9 +140,9 @@ elseif (isset($segments[0]) && $segments[0] === 'painel') {
 
     if (isset($segments[1])) {
         if ($segments[1] === 'web') {
-            $methodName = 'webView';
+            $methodName = 'web';
         } elseif ($segments[1] === 'tv') {
-            $methodName = 'tvView';
+            $methodName = 'tv';
         }
     }
     $params = array_slice($segments, 2);

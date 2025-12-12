@@ -10,7 +10,7 @@ use PDO;
 
 class PainelController
 {
-    private function carregarDadosDoCampus($campus)
+    private function carregarDadosDoCampus($campus, $filtrarPorHora = false)
     {
         if ($campus !== 'brotas' && $campus !== 'cabula') {
             $errorController = new ErrorController();
@@ -22,9 +22,17 @@ class PainelController
 
         $unidadeId = ($campus === 'brotas') ? 2 : 1;
 
+        if ($filtrarPorHora) {
+            // NOVO: Usa o método filtrado para a visualização da TV
+            $reservas = $reservaModel->getProgramacaoAtualizadaDoDia($unidadeId);
+        } else {
+            // Mantém o método original para a visualização Web
+            $reservas = $reservaModel->getProgramacaoDoDiaPorCampus($unidadeId);
+        }
+
         return [
             'campus' => $campus,
-            'reservas' => $reservaModel->getProgramacaoDoDiaPorCampus($unidadeId)
+            'reservas' => $reservas
         ];
     }
 
@@ -55,7 +63,8 @@ class PainelController
         }
 
         global $conn;
-        $data = $this->carregarDadosDoCampus($campus);
+        // NOVO: Passa TRUE para filtrar por hora
+        $data = $this->carregarDadosDoCampus($campus, true);
 
         $publicidadeModel = new PublicidadeModel($conn);
         $publicidades = $publicidadeModel->getPublicidadesAtivas();
@@ -74,7 +83,8 @@ class PainelController
     {
         global $conn;
 
-        $data = $this->carregarDadosDoCampus($campus);
+        // NOVO: A API deve usar o método filtrado para o painel de TV
+        $data = $this->carregarDadosDoCampus($campus, true);
 
         $publicidadeModel = new PublicidadeModel($conn);
         $data['publicidades'] = $publicidadeModel->getPublicidadesAtivas(); // Busca dados do BD

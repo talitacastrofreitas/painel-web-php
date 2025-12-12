@@ -15,6 +15,15 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- DATATABLE-->
+    <link rel="stylesheet" href="<?= BASE_URL ?>public/assets/css/datatable/jquery.dataTables.min.css" rel="stylesheet"
+        type="text/css">
+
+    <link rel="stylesheet" href="<?= BASE_URL ?>public/assets/css/datatable/responsive.bootstrap.min.css"
+        rel="stylesheet" type="text/css">
+
+
+
     <?php if (isset($data['css_file'])): ?>
         <link href="<?= BASE_URL ?>public/assets/css/<?= htmlspecialchars($data['css_file']) ?>" rel="stylesheet">
     <?php endif; ?>

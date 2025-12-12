@@ -5,6 +5,16 @@
 <script src="https://kit.fontawesome.com/0de36d37a3.js" crossorigin="anonymous"></script>
 <script src="<?= BASE_URL ?>public/assets/js/header_tv.js"></script>
 
+<!-- DATATABLE JS -->
+<!-- <script src="assets/js/datatable/jquery.dataTables.min.js"></script> -->
+<!-- <script src="assets/js/datatable/dataTables.responsive.min.js"></script> -->
+<!-- <script src="assets/js/datatable/datatables.init.js"></script> -->
+
+<script src="<?= BASE_URL ?>public/assets/js/datatable/jquery.dataTables.min.js"></script>
+
+<script src="<?= BASE_URL ?>public/assets/js/datatable/dataTables.responsive.min.js"></script>
+<script src="<?= BASE_URL ?>public/assets/js/datatable/datatables.init.js"></script>
+
 <script src="<?= BASE_URL ?>public/assets/js/painel_updater.js"></script>
 
 <!-- SORTABLEJS -->
@@ -14,30 +24,6 @@
 <script>
     // Bloco único para scripts da página
     $(document).ready(function () {
-
-        // Inicialização do DataTable (só precisa de uma)
-        $('#tabela').DataTable({
-            paging: false,
-            ordering: true, // Recomendo deixar true, mas pode mudar para false
-            info: false,
-            "language": {
-                "sProcessing": "Procurando...",
-                "lengthMenu": "Mostrar _MENU_ registros",
-                "zeroRecords": "Nenhuma reserva encontrada para hoje.",
-                "search": "",
-                "info": "Mostrar _START_ até _END_ de _TOTAL_ registros",
-                "infoEmpty": "Nenhum registro encontrado",
-                "infoFiltered": "(filtrado de _MAX_ registros totais)",
-                "searchPlaceholder": "Busca",
-                "paginate": {
-                    "first": "Primeiro",
-                    "last": "Último",
-                    "next": "Próximo",
-                    "previous": "Anterior"
-                },
-            }
-        });
-
 
         // Lógica para seleção de linhas da tabela
         $('#tabela tbody').on('click', 'tr', function () {
@@ -64,34 +50,6 @@
             });
         });
 
-
-        // Lógica para reordenar com Drag and Drop
-        const sortableTbody = document.getElementById('sortable-tbody');
-        if (sortableTbody) {
-            new Sortable(sortableTbody, {
-                animation: 150,
-                handle: '.drag-handle',
-                onEnd: function (evt) {
-                    const items = evt.to.children;
-                    let orderedIds = [];
-                    for (let i = 0; i < items.length; i++) {
-                        orderedIds.push(items[i].getAttribute('data-id'));
-                    }
-                    $.ajax({
-                        url: '<?= BASE_URL ?>admin/salvarOrdemAjax',
-                        type: 'POST',
-                        data: { ordem: orderedIds },
-                        dataType: 'json',
-                        success: function (response) {
-                            if (response.status === 'success') {
-                                const Toast = Swal.mixin({ toast: true, position: 'top-end', showConfirmButton: false, timer: 2000 });
-                                Toast.fire({ icon: 'success', title: 'Ordem salva!' });
-                            }
-                        }
-                    });
-                }
-            });
-        }
     });
 
     // Lógica do Preloader (usa o evento 'load' do window)

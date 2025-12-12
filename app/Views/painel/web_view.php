@@ -4,14 +4,13 @@ $pageTitle = 'Painel Web - ' . ucfirst($data['campus']);
 
 require_once BASE_PATH . 'app/Views/layouts/header.php';
 ?>
-
 <header>
     <div class="row m-0">
         <div class="col-3 col-md-4 text-start d-flex align-items-center">
             <img src="<?= BASE_URL ?>public/assets/img/logo_header.svg" alt="" width="220px" class="img-fluid">
         </div>
         <div class="col-8 col-md-7 text-start d-flex align-items-center">
-            <h1>ENCONTRE SUA SALA OU LABORATÓRIO</h1>
+            <h1 class="title-painel">PROGRAMAÇÃO DIÁRIA</h1>
         </div>
         <div class="col-1 col-md-1 text-end d-flex align-items-center">
             <button class="botao_nav d-flex align-items-center" type="button" data-bs-toggle="offcanvas"
@@ -26,49 +25,89 @@ require_once BASE_PATH . 'app/Views/layouts/header.php';
     </div>
 </header>
 
-<?php require_once BASE_PATH . 'app/Views/partials/date_header.php'; ?>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
 
 
-<div class="table-responsive">
-    <table id="tabela" class="table table-striped tabela display">
 
-        <?php require_once BASE_PATH . 'app/Views/partials/thead.php'; ?>
 
-        <tbody>
-            <?php // Verifica se existem reservas para exibir
-            if (!empty($data['reservas'])): ?>
 
-                <?php // para cada reserva, cria uma linha na tabela
-                    foreach ($data['reservas'] as $row): ?>
-                    <?php
-                    // Lógica para definir o nome do componente
-                    $componente = '';
-                    if (!empty($row['res_componente_atividade'])) {
-                        $componente = $row['compc_componente'];
-                    } elseif (!empty($row['res_componente_atividade_nome'])) {
-                        $componente = $row['res_componente_atividade_nome'];
-                    } elseif (!empty($row['res_nome_atividade'])) {
-                        $componente = $row['res_nome_atividade'];
-                    }
-                    ?>
-                    <tr valign="middle">
-                        <td class='border_radiu_row_start'>
-                            <?= htmlspecialchars(date('H:i', strtotime($row['res_hora_inicio']))) ?>
-                        </td>
-                        <td><?= htmlspecialchars(date('H:i', strtotime($row['res_hora_fim']))) ?></td>
-                        <td><?= htmlspecialchars($row['curs_curso']) ?></td>
-                        <td><?= htmlspecialchars($componente) ?></td>
-                        <td><?= htmlspecialchars($row['res_modulo']) ?></td>
-                        <td><?= htmlspecialchars($row['res_professor']) ?></td>
-                        <td class='border_radiu_row_end'><?= htmlspecialchars($row['esp_nome_local_resumido']) ?></td>
+            <?php require_once BASE_PATH . 'app/Views/partials/date_header.php'; ?>
 
-                    </tr>
-                <?php endforeach; ?>
 
-            <?php endif; ?>
-        </tbody>
-    </table>
+            <div class="row">
+                <div class="col-lg-12">
+
+
+                    <div class="card rounded-0">
+
+
+
+                        <div class="card-body p-0">
+                            <table id="tabela"
+                                class="table dt-responsive nowrap align-middle dataTable no-footer dtr-inline collapsed table-striped"
+                                style="width:100%">
+
+                                <thead>
+                                    <tr valign="middle" class="teste">
+                                        <th>INÍCIO</th>
+                                        <th>FIM</th>
+                                        <th>CURSO / SETOR</th>
+                                        <th>COMPONENTE CURRICULAR / ATIVIDADE</th>
+                                        <th>MÓDULO</th>
+                                        <th>PROFESSOR / SOLICITANTE</th>
+                                        <th>SALA / LABORATÓRIO</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php // Verifica se existem reservas para exibir
+                                    if (!empty($data['reservas'])): ?>
+
+                                        <?php // para cada reserva, cria uma linha na tabela
+                                            foreach ($data['reservas'] as $row): ?>
+                                            <?php
+                                            // Lógica para definir o nome do componente
+                                            $componente = '';
+                                            if (!empty($row['res_componente_atividade'])) {
+                                                $componente = $row['compc_componente'];
+                                            } elseif (!empty($row['res_componente_atividade_nome'])) {
+                                                $componente = $row['res_componente_atividade_nome'];
+                                            } elseif (!empty($row['res_nome_atividade'])) {
+                                                $componente = $row['res_nome_atividade'];
+                                            }
+                                            ?>
+                                            <tr valign="middle">
+                                                <td>
+                                                    <?= htmlspecialchars(date('H:i', strtotime($row['res_hora_inicio']))) ?>
+                                                </td>
+                                                <td><?= htmlspecialchars(date('H:i', strtotime($row['res_hora_fim']))) ?></td>
+                                                <td><?= htmlspecialchars($row['curs_curso']) ?></td>
+                                                <td><?= htmlspecialchars($componente) ?></td>
+                                                <td><?= htmlspecialchars($row['res_modulo']) ?></td>
+                                                <td><?= htmlspecialchars($row['res_professor']) ?></td>
+                                                <td>
+                                                    <?= htmlspecialchars($row['esp_nome_local_resumido']) ?>
+                                                </td>
+
+                                            </tr>
+                                        <?php endforeach; ?>
+
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 <?php
 require_once BASE_PATH . 'app/Views/partials/nav.php'; ?>
 <?php

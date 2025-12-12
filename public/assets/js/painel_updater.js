@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const baseUrl = painelCarouselElement.dataset.baseUrl;
   const apiUrl = `${baseUrl}api/painel-data/${campus}`;
 
-  const UPDATE_INTERVAL = 10000; // 10 segundos para testes
+  const UPDATE_INTERVAL = 5000; // 10 segundos para testes
   let currentDataSignature = "";
 
   // Referência para a instância do carrossel Bootstrap

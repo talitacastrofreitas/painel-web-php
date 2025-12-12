@@ -15,7 +15,7 @@ class PublicidadeModel
 
     public function getPublicidadesAtivas()
     {
-        // Este método permanece, pois o Painel TV ainda precisa LER as publicidades do banco
+
         $sql = "SELECT caminho_imagem, media_type FROM publicidades WHERE ativo = 1 ORDER BY ordem_exibicao ASC";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();

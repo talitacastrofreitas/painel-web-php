@@ -1,5 +1,4 @@
 <?php
-date_default_timezone_set('America/Sao_Paulo');
 
 $dia_semana_sigla = date('D');
 $mes_sigla = date('M');
@@ -38,9 +37,12 @@ $mes_extenso = [
             <span class="data_dia"><?= $dia_numero ?></span>
             <span class="data_dia"><?= $mes_extenso[$mes_sigla] ?? '' ?></span>
             <span class="data_dia"><?= $ano_numero ?></span>
+            <?= strtoupper($data['campus']) ?>
         </span>
 
-        <?= strtoupper($data['campus']) ?>
+        <br>
+        <div class="mt-3">
 
+        </div>
     </div>
 </div>
