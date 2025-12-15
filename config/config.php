@@ -19,7 +19,7 @@ $dotenvCandidateDirs = [
 
 define('BASE_PATH', __DIR__ . '/../');
 // define('BASE_URL', $_ENV['BASE_URL']);
-define('BASE_URL', $_ENV['BASE_URL'] ?? 'http://localhost:8080/painel/');
+define('BASE_URL', $_ENV['BASE_URL'] ?? 'http://10.71.50.85/painel/');
 define('PAINEL_TV_API_KEY', $_ENV['PAINEL_TV_API_KEY']);
 
 
