@@ -181,16 +181,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Fim da Lógica para Slides de Reservas ---
 
     // --- Início da Lógica para Slides de Publicidade ---
+    // if (publicidades && publicidades.length > 0) {
+    //   publicidades.forEach((pub) => {
+    //     const slide = document.createElement("div");
+    //     slide.classList.add("carousel-item", "publicidade-item");
+    //     if (isFirstItem) {
+    //       // Adiciona 'active' se ainda não houver nenhum slide ativo
+    //       slide.classList.add("active");
+    //       isFirstItem = false;
+    //     }
+    //     slide.setAttribute("data-bs-interval", publicidadeInterval.toString());
+
     if (publicidades && publicidades.length > 0) {
       publicidades.forEach((pub) => {
         const slide = document.createElement("div");
         slide.classList.add("carousel-item", "publicidade-item");
         if (isFirstItem) {
-          // Adiciona 'active' se ainda não houver nenhum slide ativo
           slide.classList.add("active");
           isFirstItem = false;
         }
-        slide.setAttribute("data-bs-interval", publicidadeInterval.toString());
+
+        // --- CORREÇÃO AQUI ---
+        // Verifica se existe duração no objeto 'pub' vindo do banco.
+        // Se existir e for maior que 0, multiplica por 1000. Se não, usa 15000.
+        const tempoSlide = (pub.duracao && pub.duracao > 0) ? pub.duracao * 1000 : 10000;
+        
+        slide.setAttribute("data-bs-interval", tempoSlide.toString());
 
         const mediaUrl = `${baseUrl}public/${pub.caminho_imagem}`;
 

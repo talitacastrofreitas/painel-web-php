@@ -92,10 +92,16 @@ $first_item_active = true; // Para garantir que apenas o primeiro item total sej
         }
         ?>
 
-        <?php if (!empty($data['publicidades'])): ?>
-            <?php foreach ($data['publicidades'] as $publicidade): ?>
-                <div class="carousel-item publicidade-item <?= $first_item_active ? 'active' : '' ?>"
-                    data-bs-interval="<?= $intervaloSlidePublicidade ?>">
+  <?php if (!empty($data['publicidades'])): ?>
+    <?php foreach ($data['publicidades'] as $publicidade): ?>
+        <?php 
+            // Define a duração: valor do banco * 1000 (ms) ou 15000 (15s) se vazio
+            $tempoSlide = isset($publicidade['duracao']) && $publicidade['duracao'] > 0 
+                          ? $publicidade['duracao'] * 1000 
+                          : 10000; 
+        ?>
+        <div class="carousel-item publicidade-item <?= $first_item_active ? 'active' : '' ?>"
+            data-bs-interval="<?= $tempoSlide ?>">
                     <?php
                     // Caminho da imagem/vídeo para o Painel TV
                     // BASE_URL já é 'http://localhost:8080/painel/'
